@@ -1,0 +1,6 @@
+OpenBitFun/
+.tmp/
+.codeartsdoer/
+node_modules/
+.wrangler/
+*.bfminiapp

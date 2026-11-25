@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keepora</title>
+<style id="openbitfun-appearance-default">
+  :root {
+    color-scheme: light dark;
+    background: transparent;
+    --openbitfun-radius: 8px;
+    --openbitfun-radius-lg: 12px;
+    --openbitfun-font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --openbitfun-font-mono: 'Fira Code', 'Cascadia Mono', 'Cascadia Code', Consolas, 'Liberation Mono', SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Courier New', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, monospace;
+    --openbitfun-bg: #0e0e10;
+    --openbitfun-bg-secondary: #1c1c1f;
+    --openbitfun-bg-tertiary: #0e0e10;
+    --openbitfun-bg-elevated: #1c1c1f;
+    --openbitfun-text: #e8e8e8;
+    --openbitfun-text-secondary: #b0b0b0;
+    --openbitfun-text-muted: #858585;
+    --openbitfun-text-on-accent: #f3f3f5;
+    --openbitfun-accent: #60a5fa;
+    --openbitfun-accent-hover: #3b82f6;
+    --openbitfun-accent-secondary: #8b5cf6;
+    --openbitfun-success: #5fc178;
+    --openbitfun-warning: #ff930f;
+    --openbitfun-error: #f47f7d;
+    --openbitfun-info: #7dafff;
+    --openbitfun-border: rgba(255, 255, 255, 0.18);
+    --openbitfun-border-subtle: rgba(255, 255, 255, 0.12);
+    --openbitfun-element-bg: rgba(255, 255, 255, 0.1);
+    --openbitfun-element-hover: rgba(255, 255, 255, 0.12);
+    --openbitfun-focus-ring: #60a5fa;
+    --openbitfun-link: #059cb0;
+    --openbitfun-field-bg: #1c1c1f;
+    --openbitfun-field-border: rgba(255, 255, 255, 0.18);
+    --openbitfun-field-border-focus: #858585;
+    --openbitfun-scrollbar-thumb: rgba(255, 255, 255, 0.20);
+    --openbitfun-scrollbar-thumb-hover: rgba(255, 255, 255, 0.30);
+    --openbitfun-overlay-scrim: rgba(0, 0, 0, 0.56);
+    --openbitfun-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.9);
+    --openbitfun-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.8);
+    --openbitfun-shadow-card: 0 2px 4px rgba(0, 0, 0, 0.8);
+    --openbitfun-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.6);
+    --openbitfun-shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.5);
+    --openbitfun-shadow-overlay: 0 4px 20px rgba(0, 0, 0, 0.48);
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+    --openbitfun-bg: #fdfdfd;
+    --openbitfun-bg-secondary: #ffffff;
+    --openbitfun-bg-tertiary: #f7f7f7;
+    --openbitfun-bg-elevated: #ffffff;
+    --openbitfun-text: rgba(0, 0, 0, 0.80);
+    --openbitfun-text-secondary: rgba(0, 0, 0, 0.60);
+    --openbitfun-text-muted: #6a6a6a;
+    --openbitfun-text-on-accent: #ffffff;
+    --openbitfun-accent: #059cb0;
+    --openbitfun-accent-hover: #059cb0;
+    --openbitfun-accent-secondary: #7c6b99;
+    --openbitfun-success: #12722a;
+    --openbitfun-warning: #8a4c00;
+    --openbitfun-error: #bd1b19;
+    --openbitfun-info: #2360c2;
+    --openbitfun-border: rgba(16, 26, 39, 0.15);
+    --openbitfun-border-subtle: rgba(16, 26, 39, 0.08);
+    --openbitfun-element-bg: rgba(0, 0, 0, 0.05);
+    --openbitfun-element-hover: rgba(0, 0, 0, 0.08);
+    --openbitfun-focus-ring: #6a6a6a;
+    --openbitfun-link: #059cb0;
+    --openbitfun-field-bg: #ffffff;
+    --openbitfun-field-border: rgba(0, 0, 0, 0.08);
+    --openbitfun-field-border-focus: #858585;
+    --openbitfun-scrollbar-thumb: rgba(0, 0, 0, 0.20);
+    --openbitfun-scrollbar-thumb-hover: rgba(0, 0, 0, 0.30);
+    --openbitfun-overlay-scrim: rgba(16, 26, 39, 0.20);
+    --openbitfun-shadow-xs: 0 1px 2px rgba(16, 26, 39, 0.04);
+    --openbitfun-shadow-sm: 0 2px 4px rgba(16, 26, 39, 0.055);
+    --openbitfun-shadow-card: 0 2px 4px rgba(16, 26, 39, 0.055);
+    --openbitfun-shadow-lg: 0 8px 16px rgba(16, 26, 39, 0.09);
+    --openbitfun-shadow-xl: 0 12px 24px rgba(16, 26, 39, 0.11);
+    --openbitfun-shadow-overlay: 0 4px 20px rgba(0, 0, 0, 0.12);
+    }
+  }
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: transparent;
+  }
+  *::-webkit-scrollbar-track,
+  *::-webkit-scrollbar-track-piece,
+  *::-webkit-scrollbar-corner,
+  *::-webkit-scrollbar-button,
+  *::-webkit-resizer {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--openbitfun-scrollbar-thumb);
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--openbitfun-scrollbar-thumb-hover);
+  }
+  @supports (scrollbar-color: transparent transparent) {
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--openbitfun-scrollbar-thumb) transparent;
+    }
+  }
+  @supports selector(::-webkit-scrollbar) {
+    @supports not (scrollbar-color: transparent transparent) {
+      * {
+        scrollbar-width: auto !important;
+      }
+    }
+  }
+</style>
+
+<style>
+/* === Design System ===
+ * Theme: Quiet image utility, following the host's light/dark appearance.
+ * Palette: Public MiniApp surface, text, border and action tokens only.
+ * Typography: Host sans; heading 22px / body 14px / captions 13px.
+ * Radius: Host card radius, 6px for controls.
+ * Motif: Paired canvas panels with the same checkerboard transparency grid.
+ * Standalone defaults are injected by build.mjs from the host projection.
+ * ===================== */
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+:root { color-scheme: dark; }
+:root[data-openbitfun-appearance-mode="light"] { color-scheme: light; }
+body {
+  margin: 0;
+  background: var(--openbitfun-bg);
+  color: var(--openbitfun-text);
+  font: 14px/1.6 var(--openbitfun-font-sans);
+}
+button, input { font: inherit; color: inherit; }
+button {
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--openbitfun-border);
+  border-radius: 6px;
+  background: var(--openbitfun-element-bg);
+  cursor: pointer;
+}
+button:hover:not(:disabled) { background: var(--openbitfun-element-hover); }
+button:disabled { opacity: .45; cursor: default; }
+button:focus-visible, input:focus-visible, canvas:focus-visible {
+  outline: 2px solid var(--openbitfun-focus-ring);
+  outline-offset: 3px;
+}
+button[aria-pressed="true"] { border-color: var(--openbitfun-accent); color: var(--openbitfun-accent); }
+.app { max-width: 1440px; margin: 0 auto; padding: 24px; }
+.topbar, .header-actions, .filebar, .label-row, .color-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.topbar { margin-bottom: 24px; flex-wrap: wrap; }
+h1 { font-size: 22px; line-height: 1.3; font-weight: 600; margin: 0 0 4px; }
+h2 { font-size: 14px; font-weight: 600; margin: 0 0 20px; }
+p { margin: 0; }
+.topbar p, .muted, .hint, footer, .formats, #dimensions { color: var(--openbitfun-text-secondary); }
+.hint, footer, .formats, .muted { font-size: 13px; }
+.quiet { border-color: transparent; background: transparent; }
+.local-badge { color: var(--openbitfun-text-secondary); font-size: 13px; }
+.upload {
+  border: 1px dashed var(--openbitfun-border);
+  border-radius: var(--openbitfun-radius);
+  background: var(--openbitfun-bg-secondary);
+  text-align: center;
+  padding: 48px 24px 24px;
+}
+.upload-button { display: flex; flex-direction: column; align-items: center; gap: 12px; border: 0; padding: 24px; width: 100%; background: transparent; }
+.upload-button svg { margin-bottom: 12px; color: var(--openbitfun-text-secondary); }
+.upload-button strong { font-size: 18px; font-weight: 600; }
+.upload-button span { color: var(--openbitfun-text-secondary); }
+.formats { margin: 24px 0; }
+body.dragging .app { outline: 2px dashed var(--openbitfun-accent); outline-offset: -8px; }
+.filebar { padding-bottom: 16px; }
+.file-info { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
+#filename { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 45vw; }
+#dimensions { white-space: nowrap; font-size: 13px; }
+.workspace { display: grid; grid-template-columns: minmax(0, 1fr) 264px; gap: 16px; }
+.previews { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-content: start; }
+.preview-panel { margin: 0; border: 1px solid var(--openbitfun-border); border-radius: var(--openbitfun-radius); overflow: hidden; min-width: 0; }
+figcaption { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; min-height: 44px; padding: 8px 12px; background: var(--openbitfun-bg-secondary); border-bottom: 1px solid var(--openbitfun-border); }
+.canvas-stage { display: flex; align-items: center; justify-content: center; padding: 16px; height: clamp(240px, 50vh, 560px); overflow: hidden; }
+.checker {
+  --checker-tile: color-mix(in srgb, var(--openbitfun-text) 10%, transparent);
+  background-color: var(--openbitfun-bg);
+  background-image: conic-gradient(var(--checker-tile) 25%, transparent 0 50%, var(--checker-tile) 0 75%, transparent 0);
+  background-size: 20px 20px;
+}
+.canvas-stage.contrast { background-color: var(--openbitfun-text); background-image: none; }
+canvas { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+#original { cursor: crosshair; }
+.settings { padding: 16px; border: 1px solid var(--openbitfun-border); border-radius: var(--openbitfun-radius); background: var(--openbitfun-bg-secondary); align-self: start; }
+fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.control-group { margin-bottom: 20px; }
+.control-group > label { display: block; margin-bottom: 8px; }
+.color-row { gap: 8px; margin-bottom: 8px; }
+input[type="color"] { flex-shrink: 0; width: 36px; height: 36px; padding: 2px; border: 1px solid var(--openbitfun-border); border-radius: 6px; background: var(--openbitfun-field-bg); cursor: pointer; }
+#color-value { font: 13px var(--openbitfun-font-mono); }
+.label-row output { font-variant-numeric: tabular-nums; color: var(--openbitfun-text-secondary); }
+input[type="range"] { display: block; width: 100%; height: 32px; margin: 4px 0; accent-color: var(--openbitfun-accent); cursor: pointer; }
+input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--openbitfun-accent); }
+.check-row { display: flex; align-items: center; min-height: 36px; gap: 8px; cursor: pointer; }
+.check-row + .hint { margin-bottom: 12px; }
+.wide { width: 100%; }
+#reset { margin-top: 12px; }
+.export-group { border-top: 1px solid var(--openbitfun-border); margin-top: 20px; padding-top: 12px; }
+.export-group .hint { margin-top: 8px; }
+.primary { background: var(--openbitfun-accent); color: var(--openbitfun-text-on-accent); border-color: transparent; font-weight: 600; }
+.primary:hover:not(:disabled) { background: var(--openbitfun-accent-hover); }
+.status { min-height: 24px; margin-top: 16px; overflow-wrap: anywhere; color: var(--openbitfun-text-secondary); }
+.status[data-tone="error"] { color: var(--openbitfun-error); }
+.status[data-tone="warning"] { color: var(--openbitfun-warning); }
+footer { border-top: 1px solid var(--openbitfun-border-subtle); padding-top: 16px; margin-top: 16px; }
+@media (max-width: 980px) {
+  .workspace { grid-template-columns: minmax(0, 1fr); }
+  .settings { width: 100%; }
+}
+@media (max-width: 600px) {
+  .app { padding: 16px; }
+  .previews { grid-template-columns: minmax(0, 1fr); }
+  .canvas-stage { height: 280px; }
+  .file-info { flex-direction: column; gap: 0; align-items: flex-start; }
+  #filename { max-width: 55vw; }
+  #pick-hint { display: none; }
+  .upload { padding: 24px 12px; }
+}
+
+</style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <h1 data-i18n="title"></h1>
+        <p data-i18n="subtitle"></p>
+      </div>
+      <div class="header-actions">
+        <span class="local-badge" data-i18n="local"></span>
+        <button id="locale" class="quiet" type="button" data-i18n-aria="switchLanguage">EN</button>
+        <button id="theme" class="quiet" type="button" data-i18n="theme" hidden></button>
+      </div>
+    </header>
+
+    <input id="file" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+    <section id="upload" class="upload">
+      <button id="choose" class="upload-button" type="button">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 16V4m-4 4 4-4 4 4M4 15v5h16v-5" /></svg>
+        <strong data-i18n="upload"></strong>
+        <span data-i18n="uploadHint"></span>
+      </button>
+      <p class="formats" data-i18n="formats"></p>
+    </section>
+
+    <section id="editor" class="editor" hidden>
+      <div class="filebar">
+        <div class="file-info"><strong id="filename"></strong><span id="dimensions"></span></div>
+        <button id="replace" type="button" data-i18n="replace"></button>
+      </div>
+      <div class="workspace">
+        <div class="previews">
+          <figure class="preview-panel">
+            <figcaption><span data-i18n="original"></span><span id="pick-hint" class="muted" data-i18n="pickHint"></span></figcaption>
+            <div class="canvas-stage checker">
+              <canvas id="original" tabindex="0" role="img" data-i18n-aria="originalCanvas"></canvas>
+            </div>
+          </figure>
+          <figure class="preview-panel">
+            <figcaption><span data-i18n="result"></span><span class="muted">PNG</span></figcaption>
+            <div id="result-stage" class="canvas-stage checker">
+              <canvas id="result" role="img" data-i18n-aria="resultCanvas"></canvas>
+            </div>
+          </figure>
+        </div>
+        <aside class="settings" aria-labelledby="settings-title">
+          <h2 id="settings-title" data-i18n="settings"></h2>
+          <fieldset id="controls">
+            <div class="control-group">
+              <label for="background" data-i18n="background"></label>
+              <div class="color-row">
+                <input id="background" type="color" data-i18n-aria="background" />
+                <output id="color-value"></output>
+                <button id="auto" type="button" data-i18n="auto"></button>
+              </div>
+              <button id="eyedropper" type="button" class="wide" aria-pressed="false" data-i18n="pick"></button>
+            </div>
+            <div class="control-group">
+              <div class="label-row"><label for="tolerance" data-i18n="tolerance"></label><output id="tolerance-value" for="tolerance">24</output></div>
+              <input id="tolerance" type="range" min="0" max="160" step="1" value="24" />
+              <p class="hint" data-i18n="toleranceHint"></p>
+            </div>
+            <div class="control-group">
+              <div class="label-row"><label for="feather" data-i18n="feather"></label><output id="feather-value" for="feather">16</output></div>
+              <input id="feather" type="range" min="0" max="64" step="1" value="16" />
+              <p class="hint" data-i18n="featherHint"></p>
+            </div>
+            <label class="check-row"><input id="connected" type="checkbox" checked /><span data-i18n="connected"></span></label>
+            <p class="hint" data-i18n="connectedHint"></p>
+            <label class="check-row"><input id="decontaminate" type="checkbox" checked /><span data-i18n="decontaminate"></span></label>
+            <button id="reset" type="button" class="wide" data-i18n="reset"></button>
+          </fieldset>
+          <div class="export-group">
+            <label class="check-row"><input id="contrast" type="checkbox" /><span data-i18n="contrast"></span></label>
+            <button id="download" type="button" class="primary wide" data-i18n="download" disabled></button>
+            <p class="hint" data-i18n="exportHint"></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+    <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <footer data-i18n="scope"></footer>
+  </main>
+<script>
+/* ui/core.js */
+// Pure pixel operations shared by the MiniApp, standalone export, and Node tests.
+(() => {
+  const distance = (data, offset, color) => Math.max(
+    Math.abs(data[offset] - color[0]),
+    Math.abs(data[offset + 1] - color[1]),
+    Math.abs(data[offset + 2] - color[2]),
+  );
+
+  function validate(image) {
+    if (!Number.isInteger(image.width) || !Number.isInteger(image.height)
+      || image.width < 1 || image.height < 1
+      || image.data.length !== image.width * image.height * 4) {
+      throw new Error('Invalid RGBA image dimensions');
+    }
+  }
+
+  function detectBackground(image) {
+    validate(image);
+    const { width, height, data } = image;
+    const samples = [];
+    // Sample all four edges, rather than assuming a corner belongs to the background.
+    const step = Math.max(1, Math.ceil(Math.max(width, height) / 256));
+    for (let x = 0; x < width; x += step) {
+      samples.push(x * 4);
+      if (height > 1) samples.push(((height - 1) * width + x) * 4);
+    }
+    for (let y = 1; y < height - 1; y += step) {
+      samples.push(y * width * 4);
+      if (width > 1) samples.push((y * width + width - 1) * 4);
+    }
+    const opaque = samples.filter(offset => data[offset + 3] >= 250);
+    // Do not guess a foreground color when the image already has transparent padding.
+    if (opaque.length < samples.length / 2) return null;
+    const buckets = new Map();
+    let winner = null;
+    for (const offset of opaque) {
+      const key = (data[offset] >> 4) * 256 + (data[offset + 1] >> 4) * 16 + (data[offset + 2] >> 4);
+      const bucket = buckets.get(key) || [];
+      bucket.push(offset);
+      buckets.set(key, bucket);
+      if (!winner || bucket.length > winner.length) winner = bucket;
+    }
+    const median = values => values.sort((a, b) => a - b)[Math.floor(values.length / 2)];
+    const color = [0, 1, 2].map(channel => median(winner.map(offset => data[offset + channel])));
+    const confidence = opaque.filter(offset => distance(data, offset, color) <= 24).length / opaque.length;
+    return { color, confidence };
+  }
+
+  async function removeBackground(image, options, hooks = {}) {
+    validate(image);
+    const { width, height, data } = image;
+    const { color, tolerance = 24, feather = 16, connected = true, decontaminate = true } = options;
+    if (!Array.isArray(color) || color.length !== 3 || color.some(c => !Number.isFinite(c) || c < 0 || c > 255)
+      || !Number.isFinite(tolerance) || tolerance < 0 || tolerance > 255
+      || !Number.isFinite(feather) || feather < 0 || feather > 255) {
+      throw new Error('Invalid background removal options');
+    }
+    const checkCancellation = () => {
+      if (hooks.cancelled?.()) {
+        const error = new Error('Image processing cancelled');
+        error.name = 'AbortError';
+        throw error;
+      }
+    };
+    const yieldControl = hooks.yieldControl || (() => new Promise(resolve => setTimeout(resolve, 0)));
+    const checkpoint = async () => { await yieldControl(); checkCancellation(); };
+    checkCancellation();
+
+    const count = width * height;
+    const mask = new Uint8Array(count);
+    const limit = Math.min(255, tolerance + feather);
+    if (connected) {
+      const queue = new Uint32Array(count);
+      let head = 0;
+      let tail = 0;
+      const visit = index => {
+        if (mask[index]) return;
+        mask[index] = 1; // Visited foreground; each pixel is evaluated at most once.
+        const offset = index * 4;
+        if (data[offset + 3] === 0 || distance(data, offset, color) <= limit) {
+          mask[index] = 2;
+          queue[tail++] = index;
+        }
+      };
+      for (let x = 0; x < width; x++) { visit(x); visit((height - 1) * width + x); }
+      for (let y = 0; y < height; y++) { visit(y * width); visit(y * width + width - 1); }
+      while (head < tail) {
+        const index = queue[head++];
+        const x = index % width;
+        if (x > 0) visit(index - 1);
+        if (x + 1 < width) visit(index + 1);
+        if (index >= width) visit(index - width);
+        if (index + width < count) visit(index + width);
+        if (head % 65536 === 0) await checkpoint();
+      }
+    }
+
+    const output = new Uint8ClampedArray(data);
+    let changedPixels = 0;
+    let visiblePixels = 0;
+    for (let index = 0; index < count; index++) {
+      const offset = index * 4;
+      if (data[offset + 3] > 0 && (!connected || mask[index] === 2)) {
+        const difference = distance(data, offset, color);
+        let coverage = 1;
+        if (difference <= tolerance) coverage = 0;
+        else if (feather > 0 && difference < limit) {
+          const transition = (difference - tolerance) / feather;
+          coverage = transition * transition * (3 - 2 * transition);
+        }
+        const alpha = Math.round(data[offset + 3] * coverage);
+        output[offset + 3] = alpha;
+        if (alpha < data[offset + 3]) changedPixels++;
+        if (alpha === 0) output.fill(0, offset, offset + 3);
+        // Unblend opaque source edges from the key color, reducing white/color halos.
+        // Existing partial alpha is retained without applying a second unblend.
+        else if (decontaminate && coverage < 1 && data[offset + 3] === 255) {
+          for (let channel = 0; channel < 3; channel++) {
+            output[offset + channel] = (data[offset + channel] - color[channel] * (1 - coverage)) / coverage;
+          }
+        }
+      }
+      if (output[offset + 3] > 0) visiblePixels++;
+      if (index > 0 && index % 65536 === 0) await checkpoint();
+    }
+    checkCancellation();
+    return { data: output, width, height, changedPixels, visiblePixels };
+  }
+
+  globalThis.IconCutout = Object.freeze({ detectBackground, removeBackground });
+})();
+
+/* ui/i18n.js */
+(() => {
+  const messages = {
+    'zh-CN': {
+      title: 'Keepora', subtitle: '去掉图标背景，留下透明 PNG。', local: '本地处理 · 无需联网',
+      switchLanguage: 'Switch to English', theme: '切换明暗', upload: '选择一张图片',
+      uploadHint: '点击上传，或将图片拖到这里；也支持粘贴图片。',
+      formats: 'PNG / JPG / WebP · 最大 30 MB、1600 万像素', replace: '更换图片',
+      original: '原图', result: '透明背景', pickHint: '可点击背景取色',
+      originalCanvas: '原始图片，启用取色后可点击背景选择颜色', resultCanvas: '抠图结果，棋盘格表示透明区域',
+      settings: '抠图设置', background: '背景颜色', auto: '自动', pick: '从原图取色', picking: '点击原图中的背景…',
+      tolerance: '颜色容差', toleranceHint: '越大，去除的相近颜色越多。',
+      feather: '边缘柔化', featherHint: '让背景色与主体边缘平滑过渡。',
+      connected: '只去除与边缘相连的背景', connectedHint: '保留内部同色区域。取消勾选可去掉字母、镂空处的背景。',
+      decontaminate: '减少边缘残留的背景色', reset: '恢复默认设置', contrast: '切换对比底色（仅预览）',
+      download: '下载透明 PNG', exportHint: '保留原始尺寸，预览底色不会写入 PNG。',
+      scope: '适合图标、Logo 的纯色或近似纯色背景。复杂照片、棋盘格图片、与主体相连的同色背景不适用。',
+      ready: '上传一张图片即可开始。', loading: '正在读取图片…', processing: '正在抠图…',
+      done: '处理完成，可以下载透明 PNG。', none: '没有找到可去除的背景。请取色、增大容差，或取消“只去除与边缘相连的背景”。',
+      empty: '当前设置会清空整张图片。请减小容差或重新选择背景色。',
+      transparent: '图片边缘已有透明区域，已保留原图。需要继续处理时，可手动取色。',
+      uncertain: '图片边缘颜色不一致，请检查预览，必要时手动取色。',
+      pickStatus: '请点击原图背景；按 Esc 退出。也可直接用颜色选择器。',
+      transparentPick: '此处为透明像素，请选择有颜色的背景区域。',
+      invalidType: '请选择 PNG、JPG 或 WebP 图片。', tooLarge: '图片过大：最大 30 MB、1600 万像素，单边不超过 8192 像素。',
+      unreadable: '无法读取这张图片，请尝试重新导出为 PNG。',
+      failed: '图片处理失败，请更换图片重试。', saveFailed: '保存失败，请重试并选择可写入的位置。',
+      unsupportedSave: '此宿主不支持文件保存。请使用独立 HTML 版本下载图片。',
+      saving: '正在保存 PNG…', saved: '透明 PNG 已保存。', downloaded: '已发起 PNG 下载。',
+      oneFile: '请一次选择一张图片。',
+    },
+    'en-US': {
+      title: 'Keepora', subtitle: 'Remove the background. Keep a transparent PNG.', local: 'On-device · Offline',
+      switchLanguage: '切换到中文', theme: 'Toggle theme', upload: 'Choose an image',
+      uploadHint: 'Click to upload, drop an image here, or paste from your clipboard.',
+      formats: 'PNG / JPG / WebP · Up to 30 MB and 16 megapixels', replace: 'Change image',
+      original: 'Original', result: 'Transparent result', pickHint: 'Click background to pick',
+      originalCanvas: 'Original image. Activate the color picker, then click the background.', resultCanvas: 'Cutout result. The checkerboard represents transparency.',
+      settings: 'Cutout settings', background: 'Background color', auto: 'Auto', pick: 'Pick from original', picking: 'Click the background…',
+      tolerance: 'Color tolerance', toleranceHint: 'Higher values remove more similar colors.',
+      feather: 'Edge softness', featherHint: 'Blend the transition between background and subject.',
+      connected: 'Only remove edge-connected background', connectedHint: 'Keep enclosed areas of the same color. Uncheck to remove backgrounds inside letters and holes.',
+      decontaminate: 'Reduce background color on edges', reset: 'Reset settings', contrast: 'Contrast backdrop (preview only)',
+      download: 'Download transparent PNG', exportHint: 'Original dimensions. The preview backdrop is never exported.',
+      scope: 'For icons and logos with solid or near-solid backgrounds. Not suitable for complex photos, baked-in checkerboards, or subjects connected to a background of the same color.',
+      ready: 'Choose an image to get started.', loading: 'Reading image…', processing: 'Removing background…',
+      done: 'Ready. Download your transparent PNG.', none: 'No background removed. Pick a color, increase tolerance, or disable edge-connected removal.',
+      empty: 'These settings remove the entire image. Reduce tolerance or pick another background color.',
+      transparent: 'The edges are already transparent. The original is preserved; pick a color to remove more.',
+      uncertain: 'The image edges have mixed colors. Check the preview or pick the background manually.',
+      pickStatus: 'Click the original background. Press Esc to exit, or use the color input.',
+      transparentPick: 'This pixel is transparent. Choose a colored background area.',
+      invalidType: 'Please choose a PNG, JPG, or WebP image.', tooLarge: 'Image too large: up to 30 MB, 16 megapixels, and 8192 pixels per side.',
+      unreadable: 'This image could not be read. Try exporting it as PNG.',
+      failed: 'Image processing failed. Please try another image.', saveFailed: 'Could not save. Try again and choose a writable location.',
+      unsupportedSave: 'This host does not support saving files. Use the standalone HTML version to download.',
+      saving: 'Saving PNG…', saved: 'Transparent PNG saved.', downloaded: 'PNG download started.',
+      oneFile: 'Please choose one image at a time.',
+    },
+  };
+  globalThis.CutoutMessages = Object.freeze(messages);
+})();
+
+/* ui/main.js */
+(() => {
+  const host = window.app;
+  const $ = id => document.getElementById(id);
+  const originalCanvas = $('original');
+  const resultCanvas = $('result');
+  const originalContext = originalCanvas.getContext('2d', { willReadFrequently: true });
+  const resultContext = resultCanvas.getContext('2d');
+  let locale = /^(zh|yue)/i.test(host?.locale || navigator.language) ? 'zh-CN' : 'en-US';
+  let image = null;
+  let filename = '';
+  let revision = 0;
+  let loadRevision = 0;
+  let timer;
+  let picking = false;
+  let loading = false;
+  let saving = false;
+  let canExport = false;
+  let statusKey = 'ready';
+  let statusTone = '';
+  let automaticColor = null;
+  const t = key => CutoutMessages[locale][key];
+  const hex = color => '#' + color.map(c => c.toString(16).padStart(2, '0')).join('');
+  const hexToChannels = value => [1, 3, 5].map(start => parseInt(value.slice(start, start + 2), 16));
+
+  function status(key, tone = '') {
+    statusKey = key;
+    statusTone = tone;
+    $('status').textContent = t(key);
+    $('status').dataset.tone = tone;
+  }
+
+  function refreshActions() {
+    $('controls').disabled = loading || saving;
+    $('download').disabled = !canExport || loading || saving;
+    $('replace').disabled = saving;
+    $('choose').disabled = saving;
+  }
+
+  function setPicking(next) {
+    picking = next;
+    $('eyedropper').setAttribute('aria-pressed', String(next));
+    $('eyedropper').textContent = t(next ? 'picking' : 'pick');
+    if (next) { originalCanvas.focus(); status('pickStatus'); }
+  }
+
+  function applyLocale() {
+    document.documentElement.lang = locale;
+    document.title = t('title');
+    document.querySelectorAll('[data-i18n]').forEach(node => { node.textContent = t(node.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(node => { node.setAttribute('aria-label', t(node.dataset.i18nAria)); });
+    $('locale').textContent = locale === 'zh-CN' ? 'EN' : '中文';
+    $('eyedropper').textContent = t(picking ? 'picking' : 'pick');
+    status(statusKey, statusTone);
+  }
+
+  function setTheme(mode) {
+    document.documentElement.dataset.openbitfunAppearanceMode = mode;
+  }
+  if (host) {
+    setTheme(host.appearanceMode || 'dark');
+    host.onAppearanceChange?.(payload => setTheme(payload.mode));
+    host.onLocaleChange?.(next => { locale = /^(zh|yue)/i.test(next) ? 'zh-CN' : 'en-US'; applyLocale(); });
+  } else {
+    setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    $('theme').hidden = false;
+  }
+
+  function updateColor(color) {
+    $('background').value = hex(color);
+    $('color-value').textContent = $('background').value.toUpperCase();
+  }
+
+  function defaults() {
+    $('tolerance').value = '24';
+    $('feather').value = '16';
+    $('tolerance-value').textContent = '24';
+    $('feather-value').textContent = '16';
+    $('connected').checked = true;
+    $('decontaminate').checked = true;
+    automaticColor = image ? IconCutout.detectBackground(image) : null;
+    // The default picker value is input data, not a UI theme color.
+    updateColor(automaticColor?.color || [255, 255, 255]);
+    setPicking(false);
+  }
+
+  function showOriginalResult() {
+    revision++;
+    clearTimeout(timer);
+    resultContext.putImageData(image, 0, 0);
+    canExport = image.data.some((alpha, index) => index % 4 === 3 && alpha > 0);
+    resultCanvas.setAttribute('aria-busy', 'false');
+    status('transparent');
+    refreshActions();
+  }
+
+  function schedule() {
+    const current = ++revision;
+    clearTimeout(timer);
+    canExport = false;
+    refreshActions();
+    if (!image) return;
+    // Hide the prior result while a new mask is pending, so a stale image cannot be saved.
+    resultCanvas.style.visibility = 'hidden';
+    resultCanvas.setAttribute('aria-busy', 'true');
+    status('processing');
+    timer = setTimeout(() => processImage(current), 100);
+  }
+
+  async function processImage(current) {
+    try {
+      const output = await IconCutout.removeBackground(image, {
+        color: hexToChannels($('background').value),
+        tolerance: Number($('tolerance').value),
+        feather: Number($('feather').value),
+        connected: $('connected').checked,
+        decontaminate: $('decontaminate').checked,
+      }, { cancelled: () => current !== revision });
+      if (current !== revision) return;
+      resultContext.putImageData(new ImageData(output.data, output.width, output.height), 0, 0);
+      resultCanvas.style.visibility = '';
+      resultCanvas.setAttribute('aria-busy', 'false');
+      canExport = output.visiblePixels > 0;
+      if (!output.visiblePixels) status('empty', 'warning');
+      else if (!output.changedPixels) status('none', 'warning');
+      else if (automaticColor && automaticColor.confidence < .65) status('uncertain', 'warning');
+      else status('done');
+      refreshActions();
+    } catch (error) {
+      if (error.name === 'AbortError' || current !== revision) return;
+      resultCanvas.setAttribute('aria-busy', 'false');
+      status('failed', 'error');
+      refreshActions();
+    }
+  }
+
+  function readDataURL(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function loadFile(file) {
+    if (saving) return;
+    if (!/^image\/(png|jpeg|webp)$/.test(file.type) && !(file.type === '' && /\.(png|jpe?g|webp)$/i.test(file.name))) {
+      status('invalidType', 'error'); return;
+    }
+    if (file.size > 30 * 1024 * 1024) { status('tooLarge', 'error'); return; }
+    const current = ++loadRevision;
+    const previousCanExport = canExport;
+    revision++;
+    clearTimeout(timer);
+    loading = true;
+    refreshActions();
+    status('loading');
+    try {
+      const source = await readDataURL(file);
+      if (current !== loadRevision) return;
+      const decoded = new Image();
+      await new Promise((resolve, reject) => {
+        decoded.onload = resolve;
+        decoded.onerror = reject;
+        // Data URLs also work under the hosted MiniApp's restrictive image CSP.
+        decoded.src = source;
+      });
+      if (current !== loadRevision) return;
+      const width = decoded.naturalWidth;
+      const height = decoded.naturalHeight;
+      if (!width || !height || width * height > 16000000 || width > 8192 || height > 8192) {
+        throw new Error('tooLarge');
+      }
+      // Decode on a temporary canvas so a failed replacement preserves the current image.
+      const scratch = document.createElement('canvas');
+      scratch.width = width;
+      scratch.height = height;
+      const context = scratch.getContext('2d', { willReadFrequently: true });
+      context.drawImage(decoded, 0, 0);
+      const nextImage = context.getImageData(0, 0, width, height);
+      image = nextImage;
+      filename = file.name || 'image.png';
+      originalCanvas.width = resultCanvas.width = width;
+      originalCanvas.height = resultCanvas.height = height;
+      originalContext.putImageData(image, 0, 0);
+      $('filename').textContent = filename;
+      $('filename').title = filename;
+      // Pixel dimensions are identifiers of the raster, without locale-specific grouping.
+      $('dimensions').textContent = `${width} × ${height} px`;
+      $('upload').hidden = true;
+      $('editor').hidden = false;
+      loading = false;
+      defaults();
+      if (!automaticColor) {
+        resultCanvas.style.visibility = '';
+        showOriginalResult();
+      } else schedule();
+    } catch (error) {
+      if (current !== loadRevision) return;
+      loading = false;
+      canExport = previousCanExport;
+      resultCanvas.setAttribute('aria-busy', 'false');
+      // If replacement cancelled an in-flight render, regenerate the preserved image.
+      if (image && !canExport) schedule();
+      status(error?.message === 'tooLarge' ? 'tooLarge' : 'unreadable', 'error');
+    } finally {
+      if (current === loadRevision) { loading = false; refreshActions(); }
+    }
+  }
+
+  function acceptFiles(files) {
+    if (files.length !== 1) { status('oneFile', 'warning'); return; }
+    void loadFile(files[0]);
+  }
+
+  async function download() {
+    if (!canExport || loading || saving) return;
+    saving = true;
+    const exportName = `${filename.replace(/\.[^.]+$/, '') || 'image'}-transparent.png`;
+    refreshActions();
+    try {
+      // Freeze the current raster before awaiting a host picker or file write.
+      const dataURL = resultCanvas.toDataURL('image/png');
+      if (host) {
+        if (!host.dialog?.save || !host.fs?.writeFile) { status('unsupportedSave', 'error'); return; }
+        const path = await host.dialog.save({
+          title: t('download'), defaultPath: exportName,
+          filters: [{ name: 'PNG', extensions: ['png'] }],
+        });
+        if (!path) { status('done'); return; }
+        status('saving');
+        await host.fs.writeFile(path, dataURL.slice(dataURL.indexOf(',') + 1), { encoding: 'base64' });
+        status('saved');
+      } else {
+        const link = document.createElement('a');
+        link.download = exportName;
+        link.href = dataURL;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        status('downloaded');
+      }
+    } catch {
+      status('saveFailed', 'error');
+    } finally { saving = false; refreshActions(); }
+  }
+
+  $('choose').addEventListener('click', () => $('file').click());
+  $('replace').addEventListener('click', () => $('file').click());
+  $('file').addEventListener('change', event => {
+    const files = Array.from(event.target.files || []);
+    if (files.length) acceptFiles(files);
+    event.target.value = '';
+  });
+  let dragDepth = 0;
+  document.addEventListener('dragenter', event => {
+    if (!Array.from(event.dataTransfer?.types || []).includes('Files')) return;
+    event.preventDefault(); dragDepth++; document.body.classList.add('dragging');
+  });
+  document.addEventListener('dragover', event => {
+    if (Array.from(event.dataTransfer?.types || []).includes('Files')) event.preventDefault();
+  });
+  document.addEventListener('dragleave', () => {
+    dragDepth = Math.max(0, dragDepth - 1);
+    if (!dragDepth) document.body.classList.remove('dragging');
+  });
+  document.addEventListener('drop', event => {
+    event.preventDefault(); dragDepth = 0; document.body.classList.remove('dragging');
+    if (event.dataTransfer?.files.length) acceptFiles(Array.from(event.dataTransfer.files));
+  });
+  document.addEventListener('paste', event => {
+    const files = Array.from(event.clipboardData?.files || []).filter(file => file.type.startsWith('image/'));
+    if (files.length) { event.preventDefault(); acceptFiles(files); }
+  });
+  $('background').addEventListener('input', () => {
+    automaticColor = null;
+    $('color-value').textContent = $('background').value.toUpperCase();
+    schedule();
+  });
+  for (const key of ['tolerance', 'feather']) {
+    $(key).addEventListener('input', () => { $(`${key}-value`).textContent = $(key).value; schedule(); });
+  }
+  for (const key of ['connected', 'decontaminate']) $(key).addEventListener('change', schedule);
+  $('auto').addEventListener('click', () => {
+    automaticColor = IconCutout.detectBackground(image);
+    setPicking(false);
+    if (automaticColor) { updateColor(automaticColor.color); schedule(); }
+    else { resultCanvas.style.visibility = ''; showOriginalResult(); }
+  });
+  $('reset').addEventListener('click', () => {
+    defaults();
+    if (automaticColor) schedule();
+    else { resultCanvas.style.visibility = ''; showOriginalResult(); }
+  });
+  $('eyedropper').addEventListener('click', () => setPicking(!picking));
+  originalCanvas.addEventListener('click', event => {
+    if (!image || loading || saving) return;
+    // Canvas itself has its intrinsic aspect ratio; no object-fit letterbox is sampled.
+    const box = originalCanvas.getBoundingClientRect();
+    const x = Math.min(image.width - 1, Math.max(0, Math.floor((event.clientX - box.left) / box.width * image.width)));
+    const y = Math.min(image.height - 1, Math.max(0, Math.floor((event.clientY - box.top) / box.height * image.height)));
+    const offset = (y * image.width + x) * 4;
+    if (!image.data[offset + 3]) { status('transparentPick', 'warning'); return; }
+    updateColor(Array.from(image.data.slice(offset, offset + 3)));
+    automaticColor = null;
+    setPicking(false);
+    schedule();
+  });
+  originalCanvas.addEventListener('keydown', event => {
+    if (event.key === 'Escape') { setPicking(false); status('done'); }
+    else if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); $('background').click(); }
+  });
+  $('contrast').addEventListener('change', () => $('result-stage').classList.toggle('contrast', $('contrast').checked));
+  $('download').addEventListener('click', download);
+  $('locale').addEventListener('click', () => { locale = locale === 'zh-CN' ? 'en-US' : 'zh-CN'; applyLocale(); });
+  $('theme').addEventListener('click', () => setTheme(document.documentElement.dataset.openbitfunAppearanceMode === 'dark' ? 'light' : 'dark'));
+  window.addEventListener('pagehide', () => { revision++; loadRevision++; clearTimeout(timer); });
+  defaults();
+  applyLocale();
+  refreshActions();
+})();
+
+
+</script>
+</body>
+</html>
